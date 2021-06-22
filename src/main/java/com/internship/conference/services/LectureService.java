@@ -35,7 +35,7 @@ public class LectureService {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void fillDatabase(){
+    public void fillLecturesTable(){
         saveLecture(new Lecture("testowa1", "Opis testowy 1", "10.00", 1));
         saveLecture(new Lecture("testowa2", "Opis testowy 2", "11.45", 2));
         saveLecture(new Lecture("testowa3", "Opis testowy 3", "13.30", 3));
