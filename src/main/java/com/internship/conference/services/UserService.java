@@ -33,11 +33,14 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public void deleteAllUsers(){
+        userRepository.deleteAll();
+    }
+
     @EventListener(ApplicationReadyEvent.class)
     public void fillUsersTable(){
         saveUser(new User("Jan", "kowalski"));
         saveUser(new User("Mikołaj", "Wiśniewski"));
-
     }
 
 }
