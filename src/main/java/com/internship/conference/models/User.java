@@ -1,6 +1,7 @@
 package com.internship.conference.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -15,6 +16,12 @@ public class User {
 
     @Column(name = "surname")
     private String surname;
+
+    @ManyToMany
+    @JoinTable(name = "reserved_lectures", joinColumns = @JoinColumn(
+            name = "user_id"), inverseJoinColumns = @JoinColumn(name = "lecture_id"))
+    Set<Lecture> reserved;
+
 
     public User() {
     }

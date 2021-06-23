@@ -1,6 +1,7 @@
 package com.internship.conference.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "lectures")
@@ -21,6 +22,9 @@ public class Lecture {
 
     @Column(name = "path")
     private Integer path;
+
+    @ManyToMany(mappedBy = "reserved" )
+    Set<User> reservation;
 
 
 
