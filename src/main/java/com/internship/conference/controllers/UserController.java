@@ -1,6 +1,5 @@
 package com.internship.conference.controllers;
 
-import com.internship.conference.models.Lecture;
 import com.internship.conference.models.User;
 import com.internship.conference.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

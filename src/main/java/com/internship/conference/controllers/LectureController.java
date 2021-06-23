@@ -3,9 +3,10 @@ package com.internship.conference.controllers;
 import com.internship.conference.models.Lecture;
 import com.internship.conference.services.LectureService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,29 +19,87 @@ public class LectureController {
 
     //Return list of all lectures - conference's plan
     @GetMapping("/conference-plan")
-    public List<Lecture> getAllLectures(){
-        return lectureService.findAllLectures();
+    public ResponseEntity <List<Lecture>> getAllLectures(){
+        try{
+            List <Lecture> lecturesData = lectureService.findAllLectures();
+            if(lecturesData.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     //Return only one lecture based on id
     @GetMapping("/lecture/{id}")
-    public Optional<Lecture> getLecture(@PathVariable("id") Integer id){
-        return lectureService.findLecture(id);
+    public ResponseEntity<Lecture> getLecture(@PathVariable("id") Integer id){
+        Optional <Lecture> lectureData = lectureService.findLecture(id);
+        if(lectureData.isPresent()){
+            return new ResponseEntity<>(lectureData.get(), HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     //Add single lecture
     @PostMapping("/addLecture")
-    public Lecture addLecture(@RequestBody Lecture lecture){
-        return lectureService.saveLecture(lecture);
+    public ResponseEntity <Lecture> addLecture(@RequestBody Lecture lecture){
+        try {
+            Lecture lectureData = lectureService.saveLecture(lecture);
+            return new ResponseEntity<>(lecture, HttpStatus.CREATED);
+        } catch (Exception e){
+            return new ResponseEntity<>(null , HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/editLecture")
-    public Lecture updateLecture(@RequestBody Lecture lecture){
-        return lectureService.saveLecture(lecture);
+    public ResponseEntity <Lecture> updateLecture(@PathVariable("id") Integer id, @RequestBody Lecture lecture){
+        Optional <Lecture> lectureData = lectureService.findLecture(id);
+
+        if(lectureData.isPresent()){
+            Lecture _lecture = lectureData.get();
+            _lecture.setTitle(lecture.getTitle());
+            _lecture.setDescription(lecture.getTitle());
+            _lecture.setStartTime(lecture.getStartTime());
+            _lecture.setPath(lecture.getPath());
+            return new ResponseEntity<>(lectureService.saveLecture(_lecture),HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("/deleteLecture/{id}")
-    public void deleteLectureById(@PathVariable("id") Integer id){
-        lectureService.deleteLecture(id);
+    public ResponseEntity<HttpStatus> deleteLectureById(@PathVariable("id") Integer id){
+        try {
+            lectureService.deleteLecture(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
