@@ -1,6 +1,10 @@
 package com.internship.conference.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,8 +27,9 @@ public class Lecture {
     @Column(name = "path")
     private Integer path;
 
-    @ManyToMany(mappedBy = "reserved" )
-    Set<User> reservation;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "reservedLectures" )
+    Set<User> participants;
 
 
 
@@ -76,5 +81,13 @@ public class Lecture {
 
     public void setPath(Integer path) {
         this.path = path;
+    }
+
+    public Set<User> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<User> participants) {
+        this.participants = participants;
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
 
@@ -90,6 +91,24 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("user/{user_id}/add-reservation/{lecture_id}")
+    public ResponseEntity <User> lectureReservation(@PathVariable("user_id") Integer user_id, @PathVariable("lecture_id") Integer lecture_id){
+        Optional<User> userData = userService.findUser(user_id);
+        Optional <Lecture> lectureData = lectureService.findLecture(lecture_id);
+
+        if(userData.isPresent()){
+            User _user = userData.get();
+            Lecture _lecture = lectureData.get();
+            _user.getReservedLectures().add(_lecture);
+            return  new ResponseEntity<>(userService.saveUser(_user), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+
 
 
 }

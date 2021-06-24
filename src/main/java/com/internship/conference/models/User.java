@@ -1,6 +1,8 @@
 package com.internship.conference.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,7 +29,7 @@ public class User {
     @ManyToMany
     @JoinTable(name = "reserved_lectures", joinColumns = @JoinColumn(
             name = "user_id"), inverseJoinColumns = @JoinColumn(name = "lecture_id"))
-    Set<Lecture> reserved;
+    Set<Lecture> reservedLectures;
 
 
     public User() {
@@ -80,12 +82,12 @@ public class User {
         this.email = email;
     }
 
-    public Set<Lecture> getReserved() {
-        return reserved;
+    public Set<Lecture> getReservedLectures() {
+        return reservedLectures;
     }
 
-    public void setReserved(Set<Lecture> reserved) {
-        this.reserved = reserved;
+    public void setReservedLectures(Set<Lecture> reservedLectures) {
+        this.reservedLectures = reservedLectures;
     }
 }
 
