@@ -39,8 +39,12 @@ public class UserService {
 
     @EventListener(ApplicationReadyEvent.class)
     public void fillUsersTable(){
-        saveUser(new User("Jan", "kowalski", "jkow", "jkow@gmail.com" ));
+        saveUser(new User("Jan", "Kowalski", "jkow", "jkow@gmail.com" ));
         saveUser(new User("Mikołaj", "Wiśniewski", "mkwisniewski", "wisniewski@gmail.com"));
+        saveUser(new User("Maciej", "Kość", "mkosc", "kosc@gmail.com"));
+        saveUser(new User("Tomasz", "Jabłoński", "tjablon", "jablonski@gmail.com"));
+        saveUser(new User("Piotr", "Nowak", "pnowak", "nowak@gmail.com"));
+        saveUser(new User("Mateusz", "Tomczak", "mtomczak", "mtomczak@gmail.com"));
     }
 
 }

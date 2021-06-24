@@ -36,10 +36,17 @@ public class LectureService {
 
     @EventListener(ApplicationReadyEvent.class)
     public void fillLecturesTable(){
-        saveLecture(new Lecture("testowa1", "Opis testowy 1", "10.00", 1));
-        saveLecture(new Lecture("testowa2", "Opis testowy 2", "11.45", 2));
-        saveLecture(new Lecture("testowa3", "Opis testowy 3", "13.30", 3));
-        saveLecture(new Lecture("testowa4", "Opis testowy 4", "13.30", 1));
+        saveLecture(new Lecture("Prelekcja 1", "Opis testowy 1", "10.00", 1));
+        saveLecture(new Lecture("Prelekcja 2", "Opis testowy 2", "10.00", 2));
+        saveLecture(new Lecture("Prelekcja 3", "Opis testowy 3", "10.00", 3));
+
+        saveLecture(new Lecture("Prelekcja 4", "Opis testowy 4", "12.00", 1));
+        saveLecture(new Lecture("Prelekcja 5", "Opis testowy 5", "12.00", 2));
+        saveLecture(new Lecture("Prelekcja 6", "Opis testowy 6", "12.00", 3));
+
+        saveLecture(new Lecture("Prelekcja 7", "Opis testowy 7", "14.00", 1));
+        saveLecture(new Lecture("Prelekcja 8", "Opis testowy 8", "14.00", 2));
+        saveLecture(new Lecture("Prelekcja 9", "Opis testowy 9", "14.00", 3));
 
     }
 
