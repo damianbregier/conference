@@ -39,6 +39,7 @@ public class LectureService {
         saveLecture(new Lecture("testowa1", "Opis testowy 1", "10.00", 1));
         saveLecture(new Lecture("testowa2", "Opis testowy 2", "11.45", 2));
         saveLecture(new Lecture("testowa3", "Opis testowy 3", "13.30", 3));
+        saveLecture(new Lecture("testowa4", "Opis testowy 4", "13.30", 1));
 
     }
 

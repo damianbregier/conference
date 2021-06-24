@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -100,13 +101,24 @@ public class UserController {
         if(userData.isPresent()){
             User _user = userData.get();
             Lecture _lecture = lectureData.get();
-            _user.getReservedLectures().add(_lecture);
-            return  new ResponseEntity<>(userService.saveUser(_user), HttpStatus.OK);
+
+            //Compare times between lecture and lecture already added to user
+            boolean compareStartingTime = _user.getReservedLectures().stream().filter(o -> o.getStartTime().equals(_lecture.getStartTime())).findFirst().isPresent();
+            //checks times and return conflict in case of the same starting time
+            if(compareStartingTime==false){
+                _user.getReservedLectures().add(_lecture);
+                return  new ResponseEntity<>(userService.saveUser(_user), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
+
     }
+
 
 
 
