@@ -95,9 +95,9 @@ public class UserController {
         }
     }
 
-    @PutMapping("user/{user_id}/add-reservation/{lecture_id}")
-    public ResponseEntity <User> lectureReservation(@PathVariable("user_id") Integer user_id, @PathVariable("lecture_id") Integer lecture_id){
-        Optional<User> userData = userService.findUser(user_id);
+    @PutMapping("user/{login}/{email}/lecture/{lecture_id}")
+    public ResponseEntity <User> lectureReservation(@PathVariable("login") String login, @PathVariable("email") String email, @PathVariable("lecture_id") Integer lecture_id){
+        Optional<User> userData = userService.findUserByLoginAndEmail(login, email);
         Optional <Lecture> lectureData = lectureService.findLecture(lecture_id);
 
         if(userData.isPresent()){
