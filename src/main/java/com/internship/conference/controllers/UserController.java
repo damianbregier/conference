@@ -1,6 +1,8 @@
 package com.internship.conference.controllers;
 
+import com.internship.conference.models.Lecture;
 import com.internship.conference.models.User;
+import com.internship.conference.services.LectureService;
 import com.internship.conference.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    LectureService lectureService;
 
     //Find all users
     @GetMapping("/all-users")
@@ -52,19 +57,19 @@ public class UserController {
         }
     }
 
-    @PutMapping("/editUser/{id}")
+    @PutMapping("/editEmail/{id}")
     public ResponseEntity <User> updateUser(@PathVariable("id") Integer id, @RequestBody User user){
         Optional<User> userData = userService.findUser(id);
 
         if(userData.isPresent()){
             User _user = userData.get();
-            _user.setName(user.getName());
-            _user.setSurname(user.getSurname());
+            _user.setEmail(user.getEmail());
             return new ResponseEntity<>(userService.saveUser(_user), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    
 
     @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<HttpStatus> deleteUserById(@PathVariable("id") Integer id){
@@ -85,4 +90,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 }

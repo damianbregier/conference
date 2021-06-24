@@ -17,6 +17,13 @@ public class User {
     @Column(name = "surname")
     private String surname;
 
+    @Column(name = "login")
+    private String login;
+
+    @Column(name = "email")
+    private String email;
+
+
     @ManyToMany
     @JoinTable(name = "reserved_lectures", joinColumns = @JoinColumn(
             name = "user_id"), inverseJoinColumns = @JoinColumn(name = "lecture_id"))
@@ -26,9 +33,11 @@ public class User {
     public User() {
     }
 
-    public User( String name, String surname) {
+    public User(String name, String surname, String login, String email) {
         this.name = name;
         this.surname = surname;
+        this.login = login;
+        this.email = email;
     }
 
     public Integer getId() {
@@ -54,4 +63,30 @@ public class User {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<Lecture> getReserved() {
+        return reserved;
+    }
+
+    public void setReserved(Set<Lecture> reserved) {
+        this.reserved = reserved;
+    }
 }
+
+
