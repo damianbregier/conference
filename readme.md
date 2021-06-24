@@ -62,6 +62,7 @@ Database is automatically populated with example users and lectures, information
     GET ``http://localhost:8080/api/users``
 
 ##Additional methods
+
 7. Delete user by id
 
     DELETE ```http://localhost:8080/api/users/{id}```
