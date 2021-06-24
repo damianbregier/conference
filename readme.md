@@ -1,7 +1,7 @@
 ##Installation
 It's possible to simple import project into your favourite IDE.
+Clone this repository:
 ```bash
-# Clone this repository
 $ git clone https://github.com/damianbregier/conference
 ```
 
