@@ -17,7 +17,7 @@ public class LectureController {
     @Autowired
     LectureService lectureService;
 
-    //Return list of all lectures - conference's plan
+    //Returns list of all lectures - conference's plan
     @GetMapping("/lectures")
     public ResponseEntity <List<Lecture>> getAllLectures(){
         try{

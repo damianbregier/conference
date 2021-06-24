@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -21,6 +22,7 @@ public class UserController {
 
     @Autowired
     LectureService lectureService;
+
 
 
     //Find all users
@@ -37,16 +39,17 @@ public class UserController {
         }
     }
 
-    //Find user by id, return error 404 if doesn't exists
-    @GetMapping("/users/{id}")
-    public ResponseEntity <User> getUserById(@PathVariable("id") Integer id){
-        Optional<User> userData = userService.findUser(id);
+    //Find user by login, return error 404 if doesn't exists
+    @GetMapping("/users/{login}")
+    public ResponseEntity <User> getUserByLogin(@PathVariable("login") String login){
+        Optional<User> userData = userService.findUserByLogin(login);
         if(userData.isPresent()){
             return new ResponseEntity<>(userData.get(), HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 
     @PostMapping("/users")
     public ResponseEntity <User> addUser(@RequestBody User user){
