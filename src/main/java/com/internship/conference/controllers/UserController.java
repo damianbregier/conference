@@ -24,7 +24,7 @@ public class UserController {
 
 
     //Find all users
-    @GetMapping("/all-users")
+    @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers(){
         try{
             List<User> usersData = userService.findAllUsers();
@@ -38,7 +38,7 @@ public class UserController {
     }
 
     //Find user by id, return error 404 if doesn't exists
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity <User> getUserById(@PathVariable("id") Integer id){
         Optional<User> userData = userService.findUser(id);
         if(userData.isPresent()){
@@ -48,7 +48,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/register")
+    @PostMapping("/users")
     public ResponseEntity <User> addUser(@RequestBody User user){
         try{
             User userData = userService.saveUser(user);
@@ -58,7 +58,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/editEmail/{id}")
+    @PutMapping("/users/{id}/email")
     public ResponseEntity <User> updateUser(@PathVariable("id") Integer id, @RequestBody User user){
         Optional<User> userData = userService.findUser(id);
 
@@ -72,7 +72,7 @@ public class UserController {
     }
     
 
-    @DeleteMapping("/deleteUser/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<HttpStatus> deleteUserById(@PathVariable("id") Integer id){
         try{
             userService.deleteUser(id);
@@ -82,7 +82,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/deleteAllUsers")
+    @DeleteMapping("/users")
     public ResponseEntity <HttpStatus> deleteAllUsers(){
         try{
             userService.deleteAllUsers();
@@ -107,8 +107,9 @@ public class UserController {
             int numberParticipants = (int) _lecture.getParticipants().stream().count();
 
             //checks times and return conflict in case of the same starting time
-            if(compareStartingTime==false && numberParticipants<=5){
+            if(compareStartingTime==false && numberParticipants<5){
                 _user.getReservedLectures().add(_lecture);
+
                 return  new ResponseEntity<>(userService.saveUser(_user), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);

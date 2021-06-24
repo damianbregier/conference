@@ -18,7 +18,7 @@ public class LectureController {
     LectureService lectureService;
 
     //Return list of all lectures - conference's plan
-    @GetMapping("/conference-plan")
+    @GetMapping("/lectures")
     public ResponseEntity <List<Lecture>> getAllLectures(){
         try{
             List <Lecture> lecturesData = lectureService.findAllLectures();
@@ -32,7 +32,7 @@ public class LectureController {
     }
 
     //Return only one lecture based on id
-    @GetMapping("/lecture/{id}")
+    @GetMapping("/lectures/{id}")
     public ResponseEntity<Lecture> getLecture(@PathVariable("id") Integer id){
         Optional <Lecture> lectureData = lectureService.findLecture(id);
         if(lectureData.isPresent()){
@@ -43,7 +43,7 @@ public class LectureController {
     }
 
     //Add single lecture
-    @PostMapping("/addLecture")
+    @PostMapping("/lectures")
     public ResponseEntity <Lecture> addLecture(@RequestBody Lecture lecture){
         try {
             Lecture lectureData = lectureService.saveLecture(lecture);
@@ -53,7 +53,7 @@ public class LectureController {
         }
     }
 
-    @PutMapping("/editLecture")
+    @PutMapping("/lectures/{id}")
     public ResponseEntity <Lecture> updateLecture(@PathVariable("id") Integer id, @RequestBody Lecture lecture){
         Optional <Lecture> lectureData = lectureService.findLecture(id);
 
@@ -69,7 +69,7 @@ public class LectureController {
         }
     }
 
-    @DeleteMapping("/deleteLecture/{id}")
+    @DeleteMapping("/lectures/{id}")
     public ResponseEntity<HttpStatus> deleteLectureById(@PathVariable("id") Integer id){
         try {
             lectureService.deleteLecture(id);
