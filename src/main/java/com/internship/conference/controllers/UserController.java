@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +21,7 @@ public class UserController {
 
     @Autowired
     LectureService lectureService;
+
 
     //Find all users
     @GetMapping("/all-users")
@@ -104,8 +103,11 @@ public class UserController {
 
             //Compare times between lecture and lecture already added to user
             boolean compareStartingTime = _user.getReservedLectures().stream().filter(o -> o.getStartTime().equals(_lecture.getStartTime())).findFirst().isPresent();
+            //get number of users added to lecture
+            int numberParticipants = (int) _lecture.getParticipants().stream().count();
+
             //checks times and return conflict in case of the same starting time
-            if(compareStartingTime==false){
+            if(compareStartingTime==false && numberParticipants<=5){
                 _user.getReservedLectures().add(_lecture);
                 return  new ResponseEntity<>(userService.saveUser(_user), HttpStatus.OK);
             } else {
@@ -115,6 +117,7 @@ public class UserController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
 
 
     }
