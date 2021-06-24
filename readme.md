@@ -2,7 +2,7 @@
 It's possible to simple import project into your favourite IDE.
 Clone this repository:
 ```bash
-$ git clone https://github.com/damianbregier/conference
+git clone https://github.com/damianbregier/conference
 ```
 
 Quick info on how to run a Spring Boot application
