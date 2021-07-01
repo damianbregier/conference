@@ -1,4 +1,4 @@
-##Installation
+## Installation
 It's possible to simple import project into your favourite IDE.
 Clone this repository:
 ```bash
@@ -23,7 +23,7 @@ Note: this project by default uses H2 database. You can change it in the applica
    spring.jpa.hibernate.ddl-auto=create
 ```
 
-##Usage
+## Usage
 
 Database is automatically populated with example users and lectures, informations about these objects will be used in the examples.
 
@@ -61,7 +61,7 @@ Database is automatically populated with example users and lectures, information
 
     GET ``http://localhost:8080/api/users``
 
-##Additional methods
+## Additional methods
 
 7. Delete user by id
 
